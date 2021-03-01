@@ -26,6 +26,8 @@ spec:
       cmd=kubectl
       overall_exit=0
 
+      echo "Hi, this is Pascal hack"
+
       execute() {
         if [[ ! -z "${cmd}" ]]; then $cmd apply --dry-run=$(inputs.params.DRYRUN) -k $1; fi
         e=$?
