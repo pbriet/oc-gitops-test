@@ -1,0 +1,29 @@
+config:
+  argocd:
+    namespace: openshift-gitops
+  pipelines:
+    name: cicd
+environments:
+- apps:
+  - name: app-test-application
+    services:
+    - name: test-application
+      pipelines:
+        integration:
+          bindings:
+          - dev-app-test-application-test-application-binding
+          - github-push-binding
+      source_url: https://github.com/pbriet/test-application.git
+      webhook:
+        secret:
+          name: webhook-secret-dev-test-application
+          namespace: cicd
+  name: dev
+  pipelines:
+    integration:
+      bindings:
+      - github-push-binding
+      template: app-ci-template
+- name: stage
+gitops_url: https://github.com/pbriet/oc-gitops-test.git
+version: 1
